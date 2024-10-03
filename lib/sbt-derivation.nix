@@ -10,6 +10,8 @@
   nativeBuildInputs ? [],
   passthru ? {},
   patches ? [],
+  prePatch ? "",
+  postPatch ? "",
   #
   # A function [final => prev => attrset] to override the dependencies derivation
   overrideDepsAttrs ? (_: _: {}),
@@ -47,7 +49,7 @@
   '';
 
   dependencies = (callPackage ./dependencies.nix {}) {
-    inherit src patches nativeBuildInputs sbtEnvSetupCmds;
+    inherit src patches nativeBuildInputs sbtEnvSetupCmds prePatch postPatch;
 
     namePrefix = "${pname}-sbt-dependencies";
     sha256 = depsSha256;

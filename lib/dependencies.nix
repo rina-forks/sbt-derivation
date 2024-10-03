@@ -16,6 +16,8 @@
   sbtEnvSetupCmds,
   src,
   patches ? [],
+  prePatch ? "",
+  postPatch ? "",
   sha256,
   warmupCommand,
   nativeBuildInputs ? [],
@@ -26,7 +28,7 @@
   archivalStrategy = (callPackage ./archival-strategies.nix {}).${args.archivalStrategy};
 
   mkAttrs = drv: {
-    inherit src patches;
+    inherit src patches prePatch postPatch;
 
     name = namePrefix + archivalStrategy.fileExtension;
 
